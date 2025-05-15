@@ -1,0 +1,2 @@
+# ICT1.4-AI-Vision-Hardware
+This is for the hardware AI vision module.
