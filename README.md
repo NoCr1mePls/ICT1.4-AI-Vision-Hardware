@@ -19,6 +19,9 @@ const char* WIFI_PASSWORD = "your_PASSWORD";
 
 // Server URL
 const char* SERVER_URL = "http://your-server.com/api/endpoint";
+
+// API key for authentication
+const char* API_KEY = "your_KEY";
 ```
 With ofcourse your SSID and Password filled in.
 - Run and profit.
