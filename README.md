@@ -1,5 +1,32 @@
 # ICT1.4-AI-Vision-Hardware
-This is for the hardware AI vision module.
+### This project needs a certain few things. Lets start with the hardware side.
+- A Seeed AI vision module.
+- A Seeed XIAOESP32S3
+- A I2C GPS module based on the PA1010D
+
+### For software:
+- First install `PlatformIO`.
+- Secondly add the following libraries:
+    - `Adafruit GPS Library`
+    - `Seeed_Arduino_SSCMA`
+    - `ArduinoJson`
+- Add to the `src`folder a file named `config.h`, that file should contain the following snippet:
+```
+#pragma once
+// WiFi credentials
+const char* WIFI_SSID = "your_SSID";
+const char* WIFI_PASSWORD = "your_PASSWORD";
+
+// Server URL
+const char* SERVER_URL = "http://your-server.com/api/endpoint";
+
+// API key for authentication
+const char* API_KEY = "your_KEY";
+```
+With ofcourse your SSID and Password filled in.
+- Run and profit.
+- Dont forget to upload the AI model to the AI vision module!
+
 
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
