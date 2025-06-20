@@ -6,10 +6,10 @@
 #include <HTTPClient.h>
 #include "config.h"
 
-#define GPS_DEBUG true         // Set to 'true' for debugging NMEA sentences.
+#define GPS_DEBUG false         // Set to 'true' for debugging NMEA sentences.
 #define AI_DEBUG false         // Set to 'true' to enable SSCMA debug output.
 #define TRASHFOUND_DEBUG false // Set to 'true' to enable debug output for trash found.
-#define SENDTRASHFOUND false   // Set to 'true' to send trash found data to the server.
+#define SENDTRASHFOUND true    // Set to 'true' to send trash found data to the server.
 
 bool makeCall(trash trash);
 
@@ -44,8 +44,24 @@ void setup()
     GPS.sendCommand(PMTK_SET_NMEA_UPDATE_1HZ);     // 1 Hz update rate
     while (!GPS.fix)
     {
-        delay(500);
-        Serial.print(".");
+        GPS.read();
+
+        if (GPS.newNMEAreceived())
+        {
+            if (!GPS.parse(GPS.lastNMEA())) // this also sets the newNMEAreceived() flag to false
+                continue;                   // we can fail to parse a sentence in which case we should just wait for another
+        }
+        if (GPS_DEBUG)
+        {
+            Serial.print("Location: ");
+            Serial.print(GPS.latitude_fixed / 10000000.0f);
+            Serial.print(GPS.lat);
+            Serial.print(", ");
+            Serial.print(GPS.longitude_fixed / 10000000.0f);
+            Serial.println(GPS.lon);
+            Serial.print(" Fix:");
+            Serial.println(GPS.fix);
+        }
     }
     digitalWrite(LED_BUILTIN, LOW); // Turn off the LED when GPS fix is acquired
     Serial.println("\nGPS fix acquired!");
@@ -69,6 +85,8 @@ void loop()
         Serial.print(", ");
         Serial.print(GPS.longitude_fixed / 10000000.0f);
         Serial.println(GPS.lon);
+        Serial.print(" Fix:");
+        Serial.println(GPS.fix);
     }
 
     if (GPS.newNMEAreceived())
